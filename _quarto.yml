@@ -1,0 +1,26 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "Implied Motion"
+  chapters:
+    - index.qmd
+    - dicom_2_nifti.qmd
+    - nifti_2_bids.qmd
+    - preprocessing.qmd
+    - roi.qmd
+    - decode_within.qmd
+    - decode_cross.qmd
+    - unused.qmd
+    - behavioural_data_notes.qmd
+
+
+format:
+  html:
+    theme: cosmo
+    number-sections: false
+
+execute:
+  echo: false
+  warning: false

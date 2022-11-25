@@ -1,0 +1,16 @@
+# Preprocessing MRI Data
+
+The following two scripts were used to preprocess the imaging data.
+The first script calls the second one for each participant and submits seperate jobs for parallelisation on the server.
+
+```{r}
+#| class-output: "sourcecode bash"
+
+cat(readLines("src_implied_motion/src/sh/fMRIPrep_parallel.sh"),sep = "\n")
+```
+
+```{r}
+#| class-output: "sourcecode bash"
+
+cat(readLines("src_implied_motion/src/sh/fMRIPrep.pbs"),sep = "\n")
+```

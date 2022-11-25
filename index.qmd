@@ -1,0 +1,46 @@
+This website contains all the code I used for the implied motion project.
+It is meant to walk you through the code and the data structure, which can be found [here](https://github.com/candemircan/src_implied_motion).
+If I did a good job, you should be able to use all this material as is and build on top of it if you want to.
+
+In the linked repository, the fMRI data and the behavioural data do not exist.
+Therefore you need to put raw fMRI data into the `data/raw` folder and the behavioural data to `data/behavioural` folder manually.
+
+Additionally, for a number of analyses the `FreeSurfer` package was used, which requires a (free) license file.
+I placed this file under `data/derivatives/fMRIprep/sourcedata/freesurfer/license.txt` relative to the project root.
+If you would like to use the code as it is, I recommend you do the same after [getting your license](https://surfer.nmr.mgh.harvard.edu/registration.html).
+
+
+If you also want to see the source code for this website (and perhaps even edit it), you can find it [here](https://github.com/candemircan/docs_implied_motion)
+
+## Computational Environments
+
+To be able to create the computational environments used, you must have [conda](https://docs.conda.io/en/latest/) and [docker](https://www.docker.com/) installed.
+
+For fMRI preprocessing, I used an `fMRIprep` docker container, which can be accessed with the following command:
+
+```
+docker pull nipreps/fmriprep:21.0.4
+```
+
+For ROI generation, I used a `FreeSurfer` docker image, which you can download with:
+
+```
+docker pull freesurfer/freesurfer:7.3.0
+```
+
+Lastly, for the dicom to nifti conversion, parts of the ROI generation, and decoding I used a virtual environment.
+The full specification of the virtual environment here can be found [here](https://github.com/candemircan/src_implied_motion/blob/main/environment.yml), and the identical environment can be created using:
+
+```
+conda env create -f https://raw.githubusercontent.com/candemircan/src_implied_motion/main/environment.yml
+```
+
+## Note About Paths
+
+In my configuration, I had placed the folder containing the code and the data on my home directory, and the folder was called `implied_motion`.
+If you place it in a different directory, you need to modify the `project_root` or the `PROJECT_ROOT` or the `PROJECTROOT` variables that appear at the beginning of the scripts.
+
+## Note About Participant Numbers
+
+We use participants from 4 to 23 (inclusive). The first three participants had participated in a pilot that used a different sequence and a slightly different experimental paradigm, therefore their data is not used.
+Additionally participant 19 is also excluded due to half of their data missing (which was also reported by Gizem).

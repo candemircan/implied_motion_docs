@@ -1,0 +1,22 @@
+# Cross Decoding
+
+Here, I tried to decode the direction of motion, using a classifier that was trained and tested on different types of data.
+Meaning we trained a classifier in a two fold cross-validated fashion, where we tested on real motion and test on implied motion, and then trained on implied motion and tested on real motion.
+The classification problem was again split into two (left vs. right and forward vs. backward), and the rest of the pipeline was the same as the previous decoding pipeline.
+The whole classification procedure was as follows.
+
+### Using the Expanded Design Matrix
+
+![](imgs/cross_expanded_plot.svg)
+
+### Using the Compact Design Matrix
+
+![](imgs/cross_compact_plot.svg)
+
+## Code Used
+
+```{r}
+#| class-output: "sourcecode python"
+
+cat(readLines("src_implied_motion/src/Py/mvpa_cross.py"),sep = "\n")
+```

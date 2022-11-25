@@ -1,0 +1,22 @@
+# Unused
+
+I also have some unused analysis code that I stopped running due to time constraints.
+The following code performs the same permutation based decoding analysis described earlier, however it also fits the hyperparameters using nested cross-validation.
+The reason it takes so long to run is because it doesn't only fit hyperparameters for the each fold of the actual data, but also for those of the permutation (otherwise it would be unfair).
+You can try to run it to see if it makes a difference.
+
+The first code is to create the permutation order to keep constant across ROIs.
+
+The second code is the one that actually runs the nested cross-validation for hyperparameter optimisation.
+
+```{r}
+#| class-output: "sourcecode python"
+
+cat(readLines("src_implied_motion/src/unused/create_permutation_array_script.py"),sep = "\n")
+```
+
+```{r}
+#| class-output: "sourcecode python"
+
+cat(readLines("src_implied_motion/src/unused/mvpa_within_nested_cv_script.py"),sep = "\n")
+```

@@ -1,0 +1,10 @@
+# Dicom to Nifti Conversion
+
+First, I converted the raw data from dicom format to nifti format.
+For this, I used the `dcm2niix` tool in the following script:
+
+```{r}
+#| class-output: "sourcecode bash"
+
+cat(readLines("src_implied_motion/src/sh/dicom_to_nifti.sh"),sep = "\n")
+```

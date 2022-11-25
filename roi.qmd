@@ -1,0 +1,56 @@
+# ROI Extraction
+
+We extracted the following ROIs from the Wang et al. 2015 Atlas:
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+- Early Visual Areas
+    - V1
+    - V2
+    - V3
+
+- Motion Areas
+    - V3a
+    - hMT
+    - MST
+
+:::
+
+::: {.column width="50%"}
+
+- Object Areas
+    - V3b
+    - hV4
+    - LO1
+    - LO2
+    - VO1
+    - VO2
+
+
+- Parietal Areas
+    - IPS (posterior)
+    - IPS (anterior)
+    - SPL1
+
+:::
+
+::::
+
+First, the following was code to extract all the relevant ROIs for each participant.
+
+
+```{r}
+#| class-output: "sourcecode bash"
+
+cat(readLines("src_implied_motion/src/sh/get_roi.sh"),sep = "\n")
+```
+
+Then, the following code was used to **a**) remove overlapping voxels from all ROIs **b**) merge some of the 'raw' ROIs given by the atlas.
+
+```{r}
+#| class-output: "sourcecode bash"
+
+cat(readLines("src_implied_motion/src/Py/merge_rois.py"),sep = "\n")
+```

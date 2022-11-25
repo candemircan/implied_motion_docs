@@ -1,0 +1,76 @@
+# Nifti to BIDS Conversion
+
+## Reorganise the Nifti Files
+
+At this point, the data is still messy.
+For a reusable and sharable format (and to be able to use it with some existing toolboxes), I rearranged the nifti data into the [BIDS](https://bids.neuroimaging.io/) format.
+I tried to automate this process as much as possible, however the raw data was unstructured in different ways across participants in certain cases.
+Therefore, instead of writing 19 specialised versions of the code, I carried out some manual steps (e.g. moving structural scans from one folder to another).
+Running the code provided below on the raw data alone will not put the data into the BIDS format like you see it on the server.
+
+The following example structure was created after taking the steps above.
+
+```
+sub-01
+│
+└───func
+│   │   sub-01_task-train_run-1_sbref.json
+|   |   sub-01_task-train_run-1_sbref.nii
+│   │   sub-01_task-train_run-1_bold.json
+|   |   sub-01_task-train_run-1_bold.nii
+|   |   ...
+│   │   sub-01_task-test_run-16_sbref.json
+|   |   sub-01_task-test_run-16_sbref.nii
+│   │   sub-01_task-test_run-16_bold.json
+|   |   sub-01_task-test_run-16_bold.nii
+|
+└───anat
+|   │   sub-01_T1w.json
+|   │   sub-01_T1w.nii
+|
+└───fmap
+|   |   sub-01-magnitude1.json
+|   |   sub-01-magnitude1.nii
+|   |   sub-01-magnitude2.json
+|   |   sub-01-magnitude2.nii
+|   |   sub-01-phasediff.json
+|   |   sub-01-phasediff.nii
+ ```
+
+*Extra Note*: Some participants have fieldmaps while others don't. When available, I used them, and otherwise they are ignored
+
+```{r}
+#| class-output: "sourcecode python"
+
+cat(readLines("src_implied_motion/src/Py/format_bids.py"),sep = "\n")
+```
+
+## Create Events Files
+
+To create the event files used in my GLM, I used the following code below, which create one `.tsv` file per functional run and saves it under the relevant subject's func folder in the `data/bids`.
+For the decoding, we tried two different kinds of design matrices. The examples for the two kind are:
+
+If `expanded==False`, a table of the following type is created:
+
+| onset | duration | motion direction |
+|-------|----------|------------------|
+| 10  | 15      | left             |
+| 30   | 15      | forward          |
+| ...   | ...      | ...              |
+
+If `expanded==True`, a table of this type is created:
+
+| onset | duration | motion direction |
+|-------|----------|------------------|
+| 10  | 15      | left_1             |
+| 30   | 15      | forward_1          |
+| 50 | 15 | left_2 |
+| ...   | ...      | ...              |
+
+
+
+```{r}
+#| class-output: "sourcecode python"
+
+cat(readLines("src_implied_motion/src/Py/prepare_events.py"),sep = "\n")
+```

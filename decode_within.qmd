@@ -1,0 +1,47 @@
+# Decoding Within Category
+
+Here, I tried to decode the direction of motion, using a classifier that was trained on the same data type.
+The classification problem was split into two (left vs. right and forward vs. backward).s
+The whole classification procedure was as follows.
+
+For a given participant, a given ROI, a given decoding problem (left vs. right or forward vs. backward), a given design matrix (expanded vs. compact), and a given motion type (real vs. implied):
+
+- Extract $\beta$ maps in a standardised manner using first level GLMs. Use the ROI mask on these maps.
+- Initialise a Logistic Regression model with l2 regularisation and a penalty of $C=.5$. Run a leave-one-run out cross-validaton and get the mean accuracy.
+- Permutate the labels 1000 times and run the same cross-validation procedure on the permuted labels. Record accuracy for all permutations.
+
+For a given decoding problem, motion type, and a design matrix, implement the following permutation test (as described by Vincent) which entails the entire group and a group of ROIs (early visual, object, motion, or parietal):
+
+- Iterate over ROIs and read in the null distribution for the current ROI from all subjects. From this huge 2D array (num_permutations x num_subjects) calculate the mean over subjects (=1D array with length num_permutations).
+- Cast together all mean null distributions (resulting again in a 2D array num_permutations x num_ROIs) and get the max value for each permutation along the ROIs (=1D array with length num_permutations).
+- The mean accuracy of the ROIs over subjects is also calculated and saved. This mean is later tested against the max statistic distribution.
+- Calculate corrected p-value for each ROI: Look how many accuracy values in the max statistic distribution are higher than the observed mean accuracy value (call it $A$)
+$p_{corrected} = \dfrac{A+1}{numpermutation+1}$
+
+## Decoding Real Motion
+
+### Using the Expanded Design Matrix
+
+![](imgs/real_expanded_plot.svg)
+
+### Using the Compact Design Matrix
+
+![](imgs/real_compact_plot.svg)
+
+## Decoding Implied Motion
+
+### Using the Expanded Design Matrix
+
+![](imgs/implied_expanded_plot.svg)
+
+### Using the Compact Design Matrix
+
+![](imgs/implied_compact_plot.svg)
+
+## Code Used
+
+```{r}
+#| class-output: "sourcecode python"
+
+cat(readLines("src_implied_motion/src/Py/mvpa_within.py"),sep = "\n")
+```
