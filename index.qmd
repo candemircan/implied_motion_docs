@@ -10,7 +10,9 @@ I placed this file under `data/derivatives/fMRIprep/sourcedata/freesurfer/licens
 If you would like to use the code as it is, I recommend you do the same after [getting your license](https://surfer.nmr.mgh.harvard.edu/registration.html).
 
 
-If you also want to see the source code for this website (and perhaps even edit it), you can find it [here](https://github.com/candemircan/docs_implied_motion)
+If you also want to see the source code for this website, you can find it [here](https://github.com/candemircan/docs_implied_motion)
+
+There is also a slide deck on the project [here](https://candemircan.github.io/presentations/presentation_implied_motion) that may be useful.
 
 ## Computational Environments
 
